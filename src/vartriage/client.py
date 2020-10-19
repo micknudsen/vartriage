@@ -24,3 +24,13 @@ def main():
                 if not line.startswith('#'):
                     variant = parse_vcf_entry(entry=line.rstrip('\n'))
                     triager.add_evidence(variant=variant)
+
+    with gzip.open(args.triage_vcf, 'rt') as f:
+        for line in f:
+            if line.startswith('#'):
+                print(line.rstrip('\n'))
+            else:
+                variant = parse_vcf_entry(entry=line.rstrip('\n'))
+                if triager.triage(variant=variant):
+                    variant.filter = 'PASS'
+                print(variant)
