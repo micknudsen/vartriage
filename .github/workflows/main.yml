@@ -23,4 +23,8 @@ jobs:
       - name: Install package and run unit tests
         run: |
           pip install .
-          python setup.py test
+          pip install coveralls
+          coverage run --source=vartriage setup.py test
+          coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
