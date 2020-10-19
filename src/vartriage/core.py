@@ -20,6 +20,12 @@ class Variant():
         if len(self.alt.split(',')) > 1:
             raise VariantException
 
+    def __eq__(self, other: 'Variant') -> bool:
+        return all([self.chromosome == other.chromosome,
+                    self.position == other.position,
+                    self.ref == other.ref,
+                    self.alt == other.alt])
+
     def __repr__(self):
         parts = [self.chromosome, str(self.position), self.id, self.ref, self.alt, self.qual, self.filter, self.info]
         if self.genotypes:
