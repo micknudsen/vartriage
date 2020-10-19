@@ -12,3 +12,9 @@ class TestVariant(unittest.TestCase):
         self.assertEqual(variant.ref, 'G')
         self.assertEqual(variant.alt, 'C')
         self.assertEqual(variant.filter, 'map_qual')
+
+    def test_variant_filter_status(self):
+        filtered_variant = Variant(chromosome='chr2', position=74492353, ref='T', alt='TAGGGTAA', filter='clustered_events;haplotype')
+        non_filtered_variant = Variant(chromosome='chr16', position='4203316', ref='T', alt='C', filter='PASS')
+        self.assertTrue(filtered_variant.is_filtered())
+        self.assertFalse(non_filtered_variant.is_filtered())
