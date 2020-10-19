@@ -11,8 +11,8 @@ def main():
 
     parser = ArgumentParser()
 
-    parser.add_argument('--triage_vcf', required=True)
-    parser.add_argument('--evidence_vcfs', required=True)
+    parser.add_argument('--triage_vcf', required=True, help='VCF file to be triaged')
+    parser.add_argument('--evidence_vcfs', required=True, help='Comma-separated list of VCF files to be used as second opinions')
 
     args = parser.parse_args()
 
