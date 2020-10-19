@@ -20,5 +20,11 @@ class Variant():
         if len(self.alt.split(',')) > 1:
             raise VariantException
 
+    def __repr__(self):
+        parts = [self.chromosome, str(self.position), self.id, self.ref, self.alt, self.qual, self.filter, self.info]
+        if self.genotypes:
+            parts += self.genotypes
+        return '\t'.join(parts)
+
     def is_filtered(self) -> bool:
         return not self.filter == 'PASS'
