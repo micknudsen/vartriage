@@ -20,7 +20,9 @@ class Variant():
         if len(self.alt.split(',')) > 1:
             raise VariantException
 
-    def __eq__(self, other: 'Variant') -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Variant):
+            return NotImplemented
         return all([self.chromosome == other.chromosome,
                     self.position == other.position,
                     self.ref == other.ref,
