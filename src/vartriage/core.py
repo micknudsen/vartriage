@@ -11,3 +11,6 @@ class Variant(NamedTuple):
     qual: str = '.'
     info: str = '.'
     genotypes: Optional[List[str]] = None
+
+    def is_filtered(self) -> bool:
+        return not self.filter == 'PASS'
