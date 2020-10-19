@@ -29,6 +29,11 @@ class TestVariant(unittest.TestCase):
         other_variant = Variant(chromosome='chr1', position=14626, ref='G', alt='C', filter='map_qual')
         self.assertNotEqual(variant, other_variant)
 
+    def test_variant_comparison_with_non_variant_object(self):
+        variant = Variant(chromosome='chr16', position=4203316, ref='T', alt='C', filter='PASS')
+        not_a_variant = 'chr16  4203316 T   C   PASS'
+        self.assertNotEqual(variant, not_a_variant)
+
     def test_variant_filter_status(self):
         filtered_variant = Variant(chromosome='chr2', position=74492353, ref='T', alt='TAGGGTAA', filter='clustered_events;haplotype')
         non_filtered_variant = Variant(chromosome='chr16', position=4203316, ref='T', alt='C', filter='PASS')
