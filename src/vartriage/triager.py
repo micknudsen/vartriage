@@ -11,4 +11,4 @@ class Triager:
             self._evidence.append(variant)
 
     def triage(self, variant) -> bool:
-        pass
+        return not variant.is_filtered() or variant in self._evidence
