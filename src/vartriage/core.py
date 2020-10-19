@@ -1,7 +1,9 @@
-from typing import List, NamedTuple, Optional
+from dataclasses import dataclass
+from typing import List, Optional
 
 
-class Variant(NamedTuple):
+@dataclass
+class Variant():
     chromosome: str
     position: int
     ref: str
