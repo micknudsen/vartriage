@@ -13,6 +13,10 @@ setup(
 
     python_requires='>=3.7',
 
+    entry_points={
+        'console_scripts': ['vartriage = vartriage.client:main']
+    },
+
     install_requires=[
     ],
 
