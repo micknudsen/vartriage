@@ -26,5 +26,5 @@ Note that multi-allelic variants are not supported by `vartriage`. It is thus re
 
 The recommended way to install `vartriage` is by using conda:
 ```
-conda install -c micknudsen vartriage
+$ conda install -c micknudsen vartriage
 ```
