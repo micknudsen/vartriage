@@ -1,7 +1,7 @@
 import unittest
 
 from vartriage.core import Variant
-from vartriage.exception import VariantException
+from vartriage.exceptions import VariantException
 
 
 class TestVariant(unittest.TestCase):
