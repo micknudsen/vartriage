@@ -19,7 +19,7 @@ optional arguments:
 A typical use-case could be to use Strelka as second opinion to Mutect2.
 
 ```
-vartiage --triage_vcf mutect2.vcf.gz --evidence_vcfs strelka.snvs.vcf.gz,strelka.indels.vcf.gz | bgzip -c > triaged.vcf.gz
+vartriage --triage_vcf mutect2.vcf.gz --evidence_vcfs strelka.snvs.vcf.gz,strelka.indels.vcf.gz | bgzip -c > triaged.vcf.gz
 ```
 
 Note that multi-allelic variants are not supported by `vartriage`. It is thus recommended to first process input VCF files using `bcftools -m- foo.vcf.gz`, which splits multi-allelic variants into biallelic variants.
