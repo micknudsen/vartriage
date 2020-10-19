@@ -1,4 +1,4 @@
-[![install with conda](https://anaconda.org/micknudsen/vartriage/badges/version.svg)](https://anaconda.org/micknudsen/vartriage) ![CI](https://github.com/micknudsen/vartriage/workflows/CI/badge.svg)
+[![install with conda](https://anaconda.org/micknudsen/vartriage/badges/version.svg)](https://anaconda.org/micknudsen/vartriage) ![CI](https://github.com/micknudsen/vartriage/workflows/CI/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/micknudsen/vartriage/badge.svg?branch=master)](https://coveralls.io/github/micknudsen/vartriage?branch=master)
 
 # vartriage
 
