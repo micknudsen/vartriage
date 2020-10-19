@@ -1,6 +1,7 @@
 import unittest
 
 from vartriage.core import Variant
+from vartriage.exception import VariantException
 from vartriage.parser import parse_vcf_entry
 
 
@@ -19,6 +20,10 @@ class TestVariant(unittest.TestCase):
         non_filtered_variant = Variant(chromosome='chr16', position='4203316', ref='T', alt='C', filter='PASS')
         self.assertTrue(filtered_variant.is_filtered())
         self.assertFalse(non_filtered_variant.is_filtered())
+
+    def test_creating_multiallelic_variant_raises_exception(self):
+        with self.assertRaises(VariantException):
+            Variant(chromosome='chr1', position=143464674, ref='ATT', alt='A,ATTT', filter='multiallelic;normal_artifact')
 
 
 class TestParser(unittest.TestCase):
