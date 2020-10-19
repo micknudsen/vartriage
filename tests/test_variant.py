@@ -15,23 +15,23 @@ class TestVariant(unittest.TestCase):
         self.assertEqual(variant.filter, 'map_qual')
 
     def test_variant_equality(self):
-        variant = Variant(chromosome='chr16', position='4203316', ref='T', alt='C', filter='PASS')
-        same_variant = Variant(chromosome='chr16', position='4203316', ref='T', alt='C', filter='PASS')
+        variant = Variant(chromosome='chr16', position=4203316, ref='T', alt='C', filter='PASS')
+        same_variant = Variant(chromosome='chr16', position=4203316, ref='T', alt='C', filter='PASS')
         self.assertEqual(variant, same_variant)
 
     def test_variant_equality_different_filter_status(self):
-        variant = Variant(chromosome='chr16', position='4203316', ref='T', alt='C', filter='PASS')
-        same_variant_but_filtered = Variant(chromosome='chr16', position='4203316', ref='T', alt='C', filter='low_qual')
+        variant = Variant(chromosome='chr16', position=4203316, ref='T', alt='C', filter='PASS')
+        same_variant_but_filtered = Variant(chromosome='chr16', position=4203316, ref='T', alt='C', filter='low_qual')
         self.assertEqual(variant, same_variant_but_filtered)
 
     def test_variant_inequality(self):
-        variant = Variant(chromosome='chr16', position='4203316', ref='T', alt='C', filter='PASS')
+        variant = Variant(chromosome='chr16', position=4203316, ref='T', alt='C', filter='PASS')
         other_variant = Variant(chromosome='chr1', position=14626, ref='G', alt='C', filter='map_qual')
         self.assertNotEqual(variant, other_variant)
 
     def test_variant_filter_status(self):
         filtered_variant = Variant(chromosome='chr2', position=74492353, ref='T', alt='TAGGGTAA', filter='clustered_events;haplotype')
-        non_filtered_variant = Variant(chromosome='chr16', position='4203316', ref='T', alt='C', filter='PASS')
+        non_filtered_variant = Variant(chromosome='chr16', position=4203316, ref='T', alt='C', filter='PASS')
         self.assertTrue(filtered_variant.is_filtered())
         self.assertFalse(non_filtered_variant.is_filtered())
 
