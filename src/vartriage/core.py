@@ -18,7 +18,7 @@ class Variant():
 
     def __post_init__(self):
         if len(self.alt.split(',')) > 1:
-            raise VariantException
+            raise VariantException('Multiallelic variants are not supported. Please normalize input VCF files (e.g. using bcftools norm).')
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Variant):
