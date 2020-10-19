@@ -1,10 +1,12 @@
+from typing import List
+
 from vartriage.core import Variant
 
 
 class Triager:
 
     def __init__(self) -> None:
-        self._evidence = []
+        self._evidence: List[Variant] = []
 
     def add_evidence(self, variant: Variant) -> None:
         if not variant.is_filtered():
