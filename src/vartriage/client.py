@@ -2,7 +2,6 @@ import gzip
 
 from argparse import ArgumentParser
 
-from vartriage.core import Variant
 from vartriage.parser import parse_vcf_entry
 from vartriage.triager import Triager
 
