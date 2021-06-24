@@ -1,11 +1,13 @@
-# from dataclasses import dataclass
+from dataclasses import dataclass
 # from typing import List, Optional
 
 # from vartriage.exceptions import VariantException
 
 
-# @dataclass
-# class Variant():
+@dataclass
+class Variant():
+    pass
+
 #     chromosome: str
 #     position: int
 #     ref: str
