@@ -8,6 +8,10 @@ from dataclasses import dataclass
 class Variant():
     pass
 
+
+class VCF():
+    pass
+
 #     chromosome: str
 #     position: int
 #     ref: str
