@@ -1,21 +1,43 @@
-# import unittest
+import unittest
 
-# from vartriage.parser import parse_vcf_entry
+from vartriage.core import Variant
+from vartriage.parser import parse_vcf
 
 
-# class TestParser(unittest.TestCase):
+class TestParser(unittest.TestCase):
 
-#     def setUp(self):
-#         vcf_entry = '\t'.join(['chr5', '178575044', '.', 'AC', 'A', '.', 'PASS', 'AS_FilterStatus=SITE;AS_SB_TABLE=18,152|0,4;DP=176;ECNT=3;GERMQ=93;MBQ=32,36;MFRL=286,178;MMQ=60,60;MPOS=3;NALOD=1.58;NLOD=10.82;POPAF=6.00;ROQ=93;TLOD=15.39', 'GT:AD:AF:DP:F1R2:F2R1:PGT:PID:PS:SB', '0|0:39,0:0.026:39:22,0:16,0:0|1:178575029_CAGAA_C:178575029:7,32,0,0', '0|1:131,4:0.039:135:57,3:65,1:0|1:178575029_CAGAA_C:178575029:11,120,0,4'])
-#         self.variant = parse_vcf_entry(entry=vcf_entry)
+    def test_parse_vcf(self):
 
-#     def test_parse_variant(self):
-#         self.assertEqual(self.variant.chromosome, 'chr5')
-#         self.assertEqual(self.variant.position, 178575044)
-#         self.assertEqual(self.variant.id, '.')
-#         self.assertEqual(self.variant.ref, 'AC')
-#         self.assertEqual(self.variant.alt, 'A')
-#         self.assertEqual(self.variant.qual, '.')
-#         self.assertEqual(self.variant.filter, 'PASS')
-#         self.assertEqual(self.variant.info, 'AS_FilterStatus=SITE;AS_SB_TABLE=18,152|0,4;DP=176;ECNT=3;GERMQ=93;MBQ=32,36;MFRL=286,178;MMQ=60,60;MPOS=3;NALOD=1.58;NLOD=10.82;POPAF=6.00;ROQ=93;TLOD=15.39')
-#         self.assertEqual(self.variant.genotypes, ['GT:AD:AF:DP:F1R2:F2R1:PGT:PID:PS:SB', '0|0:39,0:0.026:39:22,0:16,0:0|1:178575029_CAGAA_C:178575029:7,32,0,0', '0|1:131,4:0.039:135:57,3:65,1:0|1:178575029_CAGAA_C:178575029:11,120,0,4'])
+        vcf_header = [
+            '##fileformat=VCFv4.2',
+            '##FILTER=<ID=PASS,Description="Site contains at least one allele that passes filters">',
+            '##FILTER=<ID=clustered_events,Description="Clustered events observed in the tumor">',
+            '##FILTER=<ID=weak_evidence,Description="Mutation does not meet likelihood threshold">',
+            '##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">',
+            '##FORMAT=<ID=AF,Number=A,Type=Float,Description="Allele fractions of alternate alleles in the tumor">',
+            '##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">',
+            '##INFO=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth; some reads may have been filtered">',
+            '##INFO=<ID=STR,Number=0,Type=Flag,Description="Variant is a short tandem repeat">',
+            '##contig=<ID=chr1,length=248956422>'
+        ]
+
+        vcf_columns = [
+            '\t'.join(['#CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT', 'NORMAL', 'TUMOR'])
+        ]
+
+        vcf_data = [
+            '\t'.join(['chr1', '14752', '.', 'G', 'A', '.', 'weak_evidence', 'DP=236', 'GT:AD:AF', '0/0:113,4:0.063', '0/1:113,4:0.063']),
+            '\t'.join(['chr1', '1625272', '.', 'GC', 'G', '.', 'clustered_events;weak_evidence', 'DP=455;STR', 'GT:AD:AF', '0|0:224,3:0.015', '0|1:225,3:0.015']),
+            '\t'.join(['chr1', '11117039', '.', 'C', 'A', '.', 'PASS', 'DP=264', 'GT:AD:AF', '0/0:128,0:9.577e-03', '0/1:99,33:0.204'])
+        ]
+
+        vcf_file_lines = vcf_header + vcf_columns + vcf_data
+
+        vcf = parse_vcf(stream=vcf_file_lines)
+
+        self.assertEqual(vcf._header, vcf_header)
+        self.assertEqual(vcf._columns, vcf_columns)
+
+        self.assertEqual(vcf._variants, [Variant(crom='chr1', pos='14752', id_='.', ref='G', alt='A', qual='.', filter_='weak_evidence', info='DP=236', format_='GT:AD:AF', samples=['0/0:113,4:0.063', '0/1:113,4:0.063']),
+                                         Variant(crom='chr1', pos='1625272', id_='.', ref='GC', alt='G', qual='.', filter_='clustered_events;weak_evidence', info='', format_='GT:AD:AF', samples=['0|0:224,3:0.015', '0|1:225,3:0.015']),
+                                         Variant(crom='chr1', pos='11117039', id_='.', ref='C', alt='A', qual='.', filter_='PASS', info='', format_='GT:AD:AF', samples=['0/0:128,0:9.577e-03', '0/1:99,33:0.204'])])
