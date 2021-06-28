@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Dict, List
 
-# from vartriage.exceptions import VariantException
+from vartriage.exceptions import VariantException
 
 
 @dataclass
@@ -17,6 +17,11 @@ class Variant():
     info: str
     format_: str
     samples: Dict[str, str]
+
+    def __post_init__(self):
+        if len(self.alt.split(',')) > 1:
+            raise VariantException('Multiallelic variants are not supported. '
+                                   'Please normalize input VCF files (e.g. using bcftools norm).')
 
     def is_filtered(self) -> bool:
         return not self.filter_ == 'PASS'
@@ -45,9 +50,6 @@ class VCF():
                         samples=dict(zip(sample_names, samples)))
             )
 
-#     def __post_init__(self):
-#         if len(self.alt.split(',')) > 1:
-#             raise VariantException('Multiallelic variants are not supported. Please normalize input VCF files (e.g. using bcftools norm).')
 
 #     def __eq__(self, other: object) -> bool:
 #         if not isinstance(other, Variant):
