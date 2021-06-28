@@ -40,9 +40,9 @@ class Variant():
         return not self.filter_ == 'PASS'
 
 
+@dataclass
 class VCF():
 
-    def __init__(self, header: List[str], sample_names: List[str], variants: List[Variant]):
-        self._header = header
-        self._sample_names = sample_names
-        self._variants = variants
+    header: List[str]
+    sample_names: List[str]
+    variants: List[Variant]

@@ -37,9 +37,9 @@ class TestParser(unittest.TestCase):
 
         vcf = parse_vcf(stream=vcf_file_lines)
 
-        self.assertEqual(vcf._header, vcf_header)
-        self.assertEqual(vcf._sample_names, ['NORMAL', 'TUMOR'])
+        self.assertEqual(vcf.header, vcf_header)
+        self.assertEqual(vcf.sample_names, ['NORMAL', 'TUMOR'])
 
-        self.assertEqual(vcf._variants, [Variant(chrom='chr1', pos='14752', id_='.', ref='G', alt='A', qual='.', filter_='weak_evidence', info='DP=236', format_='GT:AD:AF', samples={'NORMAL': '0/0:113,4:0.063', 'TUMOR': '0/1:113,4:0.063'}),
-                                         Variant(chrom='chr1', pos='1625272', id_='.', ref='GC', alt='G', qual='.', filter_='clustered_events;weak_evidence', info='DP=455;STR', format_='GT:AD:AF', samples={'NORMAL': '0|0:224,3:0.015', 'TUMOR': '0|1:225,3:0.015'}),
-                                         Variant(chrom='chr1', pos='11117039', id_='.', ref='C', alt='A', qual='.', filter_='PASS', info='DP=264', format_='GT:AD:AF', samples={'NORMAL': '0/0:128,0:9.577e-03', 'TUMOR': '0/1:99,33:0.204'})])
+        self.assertEqual(vcf.variants, [Variant(chrom='chr1', pos='14752', id_='.', ref='G', alt='A', qual='.', filter_='weak_evidence', info='DP=236', format_='GT:AD:AF', samples={'NORMAL': '0/0:113,4:0.063', 'TUMOR': '0/1:113,4:0.063'}),
+                                        Variant(chrom='chr1', pos='1625272', id_='.', ref='GC', alt='G', qual='.', filter_='clustered_events;weak_evidence', info='DP=455;STR', format_='GT:AD:AF', samples={'NORMAL': '0|0:224,3:0.015', 'TUMOR': '0|1:225,3:0.015'}),
+                                        Variant(chrom='chr1', pos='11117039', id_='.', ref='C', alt='A', qual='.', filter_='PASS', info='DP=264', format_='GT:AD:AF', samples={'NORMAL': '0/0:128,0:9.577e-03', 'TUMOR': '0/1:99,33:0.204'})])
