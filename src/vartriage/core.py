@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-# from typing import List, Optional
+from typing import List
 
 # from vartriage.exceptions import VariantException
 
@@ -10,7 +10,29 @@ class Variant():
 
 
 class VCF():
-    pass
+
+    def __init__(self, header: List[str], sample_names: List[str], data: List[str]):
+
+        self._header = header
+        self._sample_names = sample_names
+
+        self._variants = []
+        for row in data:
+            chrom, pos, id_, ref, alt, qual, filter_, info, format_, *samples = row.split('\t')
+            self._variants.append(
+                Variant(chrom=chrom,
+                        pos=pos,
+                        id_=id_,
+                        ref=ref,
+                        alt=alt,
+                        qual=qual,
+                        filter_=filter_,
+                        info=info,
+                        format_=format_,
+                        samples=dict(zip(sample_names, samples)))
+            )
+
+        # Variant(crom='chr1', pos='14752', id_='.', ref='G', alt='A', qual='.', filter_='weak_evidence', info='DP=236', format_='GT:AD:AF', samples={'NORMAL': '0/0:113,4:0.063', 'TUMOR': '0/1:113,4:0.063'}),
 
 #     chromosome: str
 #     position: int
