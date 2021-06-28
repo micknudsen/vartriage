@@ -18,6 +18,9 @@ class Variant():
     format_: str
     samples: Dict[str, str]
 
+    def is_filtered(self) -> bool:
+        return not self.filter_ == 'PASS'
+
 
 class VCF():
 
@@ -41,7 +44,6 @@ class VCF():
                         format_=format_,
                         samples=dict(zip(sample_names, samples)))
             )
-
 
 #     def __post_init__(self):
 #         if len(self.alt.split(',')) > 1:
