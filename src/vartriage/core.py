@@ -23,6 +23,14 @@ class Variant():
             raise VariantException('Multiallelic variants are not supported. '
                                    'Please normalize input VCF files (e.g. using bcftools norm).')
 
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Variant):
+            return NotImplemented
+        return all([self.chrom == other.chrom,
+                    self.pos == other.pos,
+                    self.ref == other.ref,
+                    self.alt == other.alt])
+
     def is_filtered(self) -> bool:
         return not self.filter_ == 'PASS'
 
@@ -50,14 +58,6 @@ class VCF():
                         samples=dict(zip(sample_names, samples)))
             )
 
-
-#     def __eq__(self, other: object) -> bool:
-#         if not isinstance(other, Variant):
-#             return NotImplemented
-#         return all([self.chromosome == other.chromosome,
-#                     self.position == other.position,
-#                     self.ref == other.ref,
-#                     self.alt == other.alt])
 
 #     def __repr__(self):
 #         parts = [self.chromosome, str(self.position), self.id, self.ref, self.alt, self.qual, self.filter, self.info]
