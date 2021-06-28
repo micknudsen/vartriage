@@ -1,12 +1,22 @@
 from dataclasses import dataclass
-from typing import List
+from typing import Dict, List
 
 # from vartriage.exceptions import VariantException
 
 
 @dataclass
 class Variant():
-    pass
+
+    chrom: str
+    pos: str
+    id_: str
+    ref: str
+    alt: str
+    qual: str
+    filter_: str
+    info: str
+    format_: str
+    samples: Dict[str, str]
 
 
 class VCF():
@@ -31,8 +41,6 @@ class VCF():
                         format_=format_,
                         samples=dict(zip(sample_names, samples)))
             )
-
-        # Variant(crom='chr1', pos='14752', id_='.', ref='G', alt='A', qual='.', filter_='weak_evidence', info='DP=236', format_='GT:AD:AF', samples={'NORMAL': '0/0:113,4:0.063', 'TUMOR': '0/1:113,4:0.063'}),
 
 #     chromosome: str
 #     position: int
