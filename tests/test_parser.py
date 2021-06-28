@@ -33,7 +33,7 @@ class TestParser(unittest.TestCase):
             '\t'.join(['chr1', '11117039', '.', 'C', 'A', '.', 'PASS', 'DP=264', 'GT:AD:AF', '0/0:128,0:9.577e-03', '0/1:99,33:0.204'])
         ]
 
-        vcf_file_lines = vcf_header + vcf_columns + vcf_data
+        vcf_file_lines = [line + '\n' for line in vcf_header + vcf_columns + vcf_data]
 
         vcf = parse_vcf(stream=vcf_file_lines)
 
