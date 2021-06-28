@@ -31,6 +31,11 @@ class Variant():
                     self.ref == other.ref,
                     self.alt == other.alt])
 
+    def __repr__(self):
+        parts = [self.chrom, self.pos, self.id_, self.ref, self.alt, self.qual, self.filter_, self.info, self.format_]
+        parts += self.samples.values()
+        return '\t'.join(parts)
+
     def is_filtered(self) -> bool:
         return not self.filter_ == 'PASS'
 
@@ -57,13 +62,3 @@ class VCF():
                         format_=format_,
                         samples=dict(zip(sample_names, samples)))
             )
-
-
-#     def __repr__(self):
-#         parts = [self.chromosome, str(self.position), self.id, self.ref, self.alt, self.qual, self.filter, self.info]
-#         if self.genotypes:
-#             parts += self.genotypes
-#         return '\t'.join(parts)
-
-#     def is_filtered(self) -> bool:
-#         return not self.filter == 'PASS'
