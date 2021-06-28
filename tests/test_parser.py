@@ -36,7 +36,7 @@ class TestParser(unittest.TestCase):
         vcf = parse_vcf(stream=vcf_file_lines)
 
         self.assertEqual(vcf._header, vcf_header)
-        self.assertEqual(vcf._columns, vcf_columns)
+        self.assertEqual(vcf._samples, ['NORMAL', 'TUMOR'])
 
         self.assertEqual(vcf._variants, [Variant(crom='chr1', pos='14752', id_='.', ref='G', alt='A', qual='.', filter_='weak_evidence', info='DP=236', format_='GT:AD:AF', samples=['0/0:113,4:0.063', '0/1:113,4:0.063']),
                                          Variant(crom='chr1', pos='1625272', id_='.', ref='GC', alt='G', qual='.', filter_='clustered_events;weak_evidence', info='', format_='GT:AD:AF', samples=['0|0:224,3:0.015', '0|1:225,3:0.015']),
