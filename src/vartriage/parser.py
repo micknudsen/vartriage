@@ -1,13 +1,13 @@
-from typing import Iterable
+from typing import Iterable, List
 
-from vartriage.core import VCF
+from vartriage.core import Variant, VCF
 
 
 def parse_vcf(stream: Iterable[str]) -> VCF:
 
-    header = []
-    sample_names = []
-    data = []
+    header: List[str] = []
+    sample_names: List[str] = []
+    variants: List[Variant] = []
 
     for row in stream:
         if row.startswith('##'):
@@ -15,8 +15,20 @@ def parse_vcf(stream: Iterable[str]) -> VCF:
         elif row.startswith('#'):
             sample_names = row.rstrip('\n').split('\t')[9:]
         else:
-            data.append(row.rstrip('\n'))
+            chrom, pos, id_, ref, alt, qual, filter_, info, format_, *samples = row.rstrip('\n').split('\t')
+            variants.append(
+                Variant(chrom=chrom,
+                        pos=pos,
+                        id_=id_,
+                        ref=ref,
+                        alt=alt,
+                        qual=qual,
+                        filter_=filter_,
+                        info=info,
+                        format_=format_,
+                        samples=dict(zip(sample_names, samples)))
+            )
 
     return VCF(header=header,
                sample_names=sample_names,
-               data=data)
+               variants=variants)

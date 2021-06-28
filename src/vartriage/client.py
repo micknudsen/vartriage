@@ -1,8 +1,11 @@
 # import gzip
 
-# from argparse import ArgumentParser
+# from typing import Dict, List
 
-# from vartriage.parser import parse_vcf_entry
+# from argparse import ArgumentParser
+# from vartriage.core import Variant
+
+# from vartriage.parser import parse_vcf
 # from vartriage.triager import Triager
 
 
@@ -12,19 +15,17 @@ def main():
 
     # parser = ArgumentParser()
 
-    # parser.add_argument('--triage_vcf', required=True, help='VCF file to be triaged')
-    # parser.add_argument('--evidence_vcfs', required=True, help='Comma-separated list of VCF files to be used as second opinions')
+    # parser.add_argument('--triage_vcf_file', required=True, help='VCF file to be triaged')
+    # parser.add_argument('--evidence_vcf_files', required=True, help='Comma-separated list of VCF files to be used as second opinions')
 
     # args = parser.parse_args()
 
-    # triager = Triager()
+    # evidence: Dict[str, List[Variant]] = {}
+    # for evidence_vcf_file in args.evidence_vcf_files:
+    #     with gzip.open(evidence_vcf_file, 'rt') as f:
+    #         vcf = parse_vcf(evidence_vcf_file)
 
-    # for evidence_vcf in args.evidence_vcfs.split(','):
-    #     with gzip.open(evidence_vcf, 'rt') as f:
-    #         for line in f:
-    #             if not line.startswith('#'):
-    #                 variant = parse_vcf_entry(entry=line.rstrip('\n'))
-    #                 triager.add_evidence(variant=variant)
+    # triager = Triager()
 
     # with gzip.open(args.triage_vcf, 'rt') as f:
     #     for line in f:
