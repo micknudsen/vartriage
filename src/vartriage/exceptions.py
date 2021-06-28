@@ -1,2 +1,2 @@
-# class VariantException(Exception):
-#     pass
+class VariantException(Exception):
+    pass
