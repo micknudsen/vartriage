@@ -15,7 +15,7 @@ class Triager:
                            type_='Integer',
                            description='Variant considered PASS based on second opinion from these callers (vartriage)')
 
-        vcf.add_info_filed(id_='VTOF',
+        vcf.add_info_field(id_='VTOF',
                            number='.',
                            type_='String',
                            description='Original FILTER before second opinion (vartriage)')
