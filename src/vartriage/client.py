@@ -18,21 +18,21 @@ def main():
 
     args = parser.parse_args()
 
+    with gzip.open(args.triage_vcf_file, 'rt') as f:
+        vcf = parse_vcf(f)
+
     evidence: Dict[str, List[Variant]] = {}
     for vcf_id, vcf_file in [id_file_pair.split(':') for id_file_pair in args.evidence_vcf_files.split(',')]:
         with gzip.open(vcf_file, 'rt') as f:
             evidence[vcf_id] = parse_vcf(f).variants
 
     triager = Triager(evidence=evidence)
+    triager.triage(vcf=vcf)
 
-    with gzip.open(args.triage_vcf_file, 'rt') as f:
-        triager.triage(vcf=parse_vcf(f))
+    for row in vcf.header:
+        print(row)
 
-    #     for line in f:
-    #         if line.startswith('#'):
-    #             print(line.rstrip('\n'))
-    #         else:
-    #             variant = parse_vcf_entry(entry=line.rstrip('\n'))
-    #             if triager.triage(variant=variant):
-    #                 variant.filter = 'PASS'
-    #             print(variant)
+    print('\t'.join(['#CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL', 'FILTER', 'INFO', 'FORMAT'] + vcf.sample_names))
+
+    for variant in vcf.variants:
+        print(variant)
