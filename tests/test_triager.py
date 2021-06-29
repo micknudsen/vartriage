@@ -12,13 +12,13 @@ class TestTriager(unittest.TestCase):
             header=[],
             sample_names=[],
             variants=[
-                Variant(chrom='chr1', pos=100, id_='.', ref='A', alt='T', qual='.', filter_='clustered_events', info='', format_='', samples={})
+                Variant(chrom='chr1', pos='100', id_='.', ref='A', alt='T', qual='.', filter_='clustered_events', info='', format_='', samples={})
             ]
         )
 
         triager = Triager(evidence={
             'X': [
-                Variant(chrom='chr1', pos=100, id_='.', ref='A', alt='T', qual='.', filter_='PASS', info='', format_='', samples={})
+                Variant(chrom='chr1', pos='100', id_='.', ref='A', alt='T', qual='.', filter_='PASS', info='', format_='', samples={})
             ]
         })
 
@@ -26,7 +26,7 @@ class TestTriager(unittest.TestCase):
 
         self.assertFalse(vcf.variants[0].is_filtered())
         self.assertEqual(vcf.variants[0].get_info('VTSO'), 'X')
-        self.assertEqual(vcf.variants[0].get_ifno('VTOF'), 'clustered_events')
+        self.assertEqual(vcf.variants[0].get_info('VTOF'), 'clustered_events')
 
         # evidence_variants = [Variant(chrom='chr1', pos='9611912', id_='.', ref='A', alt='T', qual='.', filter_='LowEVS', info='SOMATIC;QSS=2', format_='DP:FDP:SDP', samples={'NORMAL': '68:9:0', 'TUMOR': '273:28:0'}),
         #                      Variant(chrom='chr9', pos='129439117', id_='.', ref='T', alt='C', qual='.', filter='PASS', info='SOMATIC;QSS=34', format_='DP:FDP:SDP', samples={'NORMAL': '21:0:0:0:0,0:1,1:0,0:20,20', 'TUMOR': '80:12:0:0:0,0:19,30:0,0:49,50'}),
