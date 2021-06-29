@@ -49,3 +49,12 @@ class TestTriager(unittest.TestCase):
         self.assertTrue(vcf.variants[0].is_filtered())
         self.assertIs(vcf.variants[0].get_info('VTSO'), False)
         self.assertIs(vcf.variants[0].get_info('VTOF'), False)
+
+    def test_triager_pass_variants_which_also_passes_in_evidence(self):
+        self.assertTrue(False)
+
+    def test_triager_pass_variants_which_fails_in_evidence(self):
+        self.assertTrue(False)
+
+    def test_triager_multiple_variants_multiple_evidence(self):
+        self.assertTrue(False)
