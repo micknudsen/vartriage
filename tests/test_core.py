@@ -40,6 +40,9 @@ class TestVariant(unittest.TestCase):
     def test_variant_get_info(self):
         self.assertEqual(self.variant.get_info('DP'), '236')
 
+    def test_variant_get_info_not_set(self):
+        self.assertIs(self.variant.get_info('TLOD'), False)
+
     def test_variant_set_info_with_value(self):
         self.variant.set_info(key='TLOD', value='3.14')
         self.assertEqual(self.variant.get_info('TLOD'), '3.14')
