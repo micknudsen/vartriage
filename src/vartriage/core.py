@@ -55,7 +55,10 @@ class Variant():
         for i, entry in enumerate(info_entries):
             key_ = entry.split('=')[0] if '=' in entry else entry
             if key_ == key:
-                info_entries[i] = value
+                if value:
+                    info_entries[i] = f'{key}={value}'
+                else:
+                    info_entries[i] = key
                 self.info = ';'.join(info_entries)
                 return
         if value:
