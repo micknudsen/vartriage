@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Union
 
 from vartriage.exceptions import VariantException
 
@@ -38,6 +38,17 @@ class Variant():
 
     def is_filtered(self) -> bool:
         return not self.filter_ == 'PASS'
+
+    def get_info(self, field: str) -> Union[str, bool]:
+        for entry in self.info.split(';'):
+            if '=' in entry:
+                key, value = entry.split('=', 1)
+                if key == field:
+                    return value
+            else:
+                if entry == field:
+                    return True
+        return False
 
 
 @dataclass
