@@ -7,7 +7,7 @@ from vartriage.exceptions import VariantException
 class TestVariant(unittest.TestCase):
 
     def setUp(self):
-        self.variant = Variant(chrom='chr1', pos='14752', id_='.', ref='G', alt='A', qual='.', filter_='weak_evidence', info='DP=236', format_='GT:AD:AF', samples={'NORMAL': '0/0:113,4:0.063', 'TUMOR': '0/1:113,4:0.063'})
+        self.variant = Variant(chrom='chr1', pos='14752', id_='.', ref='G', alt='A', qual='.', filter_='weak_evidence', info='DP=236;FOO', format_='GT:AD:AF', samples={'NORMAL': '0/0:113,4:0.063', 'TUMOR': '0/1:113,4:0.063'})
 
     def test_variant_equality(self):
         same_variant = Variant(chrom='chr1', pos='14752', id_='.', ref='G', alt='A', qual='.', filter_='weak_evidence', info='DP=236', format_='GT:AD:AF', samples={'NORMAL': '0/0:113,4:0.063', 'TUMOR': '0/1:113,4:0.063'})
@@ -35,7 +35,7 @@ class TestVariant(unittest.TestCase):
             Variant(chrom='chr1', pos='8013449', id_='.', ref='C', alt='G,A', qual='.', filter_='clustered_events;multiallelic', info='DP=238', format_='GT:AD:AF', samples={'NORMAL': '0/0:113,2,0:0.030', 'TUMOR': '0/1/2:59,2,56:0.029,0.440'})
 
     def test_variant_to_string(self):
-        self.assertEqual(self.variant.__repr__(), 'chr1	14752	.	G	A	.	weak_evidence	DP=236	GT:AD:AF	0/0:113,4:0.063	0/1:113,4:0.063')
+        self.assertEqual(self.variant.__repr__(), 'chr1	14752	.	G	A	.	weak_evidence	DP=236;FOO	GT:AD:AF	0/0:113,4:0.063	0/1:113,4:0.063')
 
     def test_variant_get_info(self):
         self.assertEqual(self.variant.get_info('DP'), '236')
@@ -47,13 +47,17 @@ class TestVariant(unittest.TestCase):
         self.variant.set_info(key='TLOD', value='3.14')
         self.assertEqual(self.variant.get_info('TLOD'), '3.14')
 
+    def test_variant_set_info_with_value_already_set(self):
+        self.variant.set_info(key='DP', value='42')
+        self.assertEqual(self.variant.get_info('DP'), '42')
+
     def test_variant_set_info_without_value(self):
         self.variant.set_info(key='STR')
         self.assertIs(self.variant.get_info('STR'), True)
 
-    def test_variant_set_info_already_set(self):
-        self.variant.set_info(key='DP', value='42')
-        self.assertEqual(self.variant.get_info('DP'), '42')
+    def test_variant_set_info_without_value_already_set(self):
+        self.variant.set_info(key='FOO')
+        self.assertIs(self.variant.get_info('FOO'), True)
 
 
 class TestVCF(unittest.TestCase):
