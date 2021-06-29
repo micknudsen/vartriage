@@ -1,6 +1,6 @@
 import unittest
 
-from vartriage.core import Variant
+from vartriage.core import Variant, VCF
 from vartriage.exceptions import VariantException
 
 
@@ -36,3 +36,13 @@ class TestVariant(unittest.TestCase):
 
     def test_variant_to_string(self):
         self.assertEqual(self.variant.__repr__(), 'chr1	14752	.	G	A	.	weak_evidence	DP=236	GT:AD:AF	0/0:113,4:0.063	0/1:113,4:0.063')
+
+
+class TestVCF(unittest.TestCase):
+
+    def test_add_info_field(self):
+
+        vcf = VCF(header=[], sample_names=[], variants=[])
+        vcf.add_info_field(id_='XT', number='R', type_='Integer', description='Test Field')
+
+        self.assertTrue('##<INFO=<ID=XT,Number=R,Type=Integer,Description="Test Field">' in vcf.header)
