@@ -51,6 +51,10 @@ class TestVariant(unittest.TestCase):
         self.variant.set_info(key='STR')
         self.assertIs(self.variant.get_info('STR'), True)
 
+    def test_variant_set_info_already_set(self):
+        self.variant.set_info(key='DP', value='42')
+        self.assertEqual(self.variant.get_info('DP'), '42')
+
 
 class TestVCF(unittest.TestCase):
 
