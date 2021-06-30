@@ -29,6 +29,6 @@ class Triager:
                 if second_opinions:
 
                     variant.set_info('VTSO', ','.join(second_opinions))
-                    variant.set_info('VTOF', variant.filter_)
+                    variant.set_info('VTOF', variant.filter_.replace(';', ','))
 
                     variant.filter_ = 'PASS'
