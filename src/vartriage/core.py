@@ -76,4 +76,4 @@ class VCF():
     variants: List[Variant]
 
     def add_info_field(self, id_: str, number: str, type_: str, description: str) -> None:
-        self.header.append(f'##<INFO=<ID={id_},Number={number},Type={type_},Description="{description}">')
+        self.header.append(f'##INFO=<ID={id_},Number={number},Type={type_},Description="{description}">')

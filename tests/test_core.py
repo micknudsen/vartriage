@@ -67,4 +67,4 @@ class TestVCF(unittest.TestCase):
         vcf = VCF(header=[], sample_names=[], variants=[])
         vcf.add_info_field(id_='XT', number='R', type_='Integer', description='Test Field')
 
-        self.assertTrue('##<INFO=<ID=XT,Number=R,Type=Integer,Description="Test Field">' in vcf.header)
+        self.assertTrue('##INFO=<ID=XT,Number=R,Type=Integer,Description="Test Field">' in vcf.header)
