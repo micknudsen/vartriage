@@ -9,7 +9,7 @@ from vartriage.parser import parse_vcf
 from vartriage.triager import Triager
 
 
-def main():
+def main() -> None:
 
     parser = ArgumentParser()
 
