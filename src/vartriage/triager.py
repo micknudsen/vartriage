@@ -20,15 +20,12 @@ class Triager:
                 second_opinions = []
 
                 for evidence_id, evidence_variants in self._evidence.items():
-
                     for variant_ in evidence_variants:
                         if not variant_.is_filtered() and variant_ == variant:
                             second_opinions.append(evidence_id)
                             break
 
                 if second_opinions:
-
                     variant.set_info('VTSO', ','.join(second_opinions))
                     variant.set_info('VTOF', variant.filter_.replace(';', ','))
-
                     variant.filter_ = 'PASS'
