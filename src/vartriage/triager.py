@@ -10,7 +10,7 @@ class Triager:
 
     def triage(self, vcf: VCF) -> None:
 
-        vcf.add_info_field(id_='VTSO', number='.', type_='Integer', description='Variant considered PASS based on second opinion from these callers (vartriage)')
+        vcf.add_info_field(id_='VTSO', number='.', type_='String', description='Variant considered PASS based on second opinion from these callers (vartriage)')
         vcf.add_info_field(id_='VTOF', number='.', type_='String', description='Original FILTER before second opinion (vartriage)')
 
         for variant in vcf.variants:
