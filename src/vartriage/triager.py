@@ -23,10 +23,8 @@ class Triager:
                 second_opinions = []
 
                 for evidence_id, evidence_variants in self._evidence.items():
-                    for variant_ in evidence_variants:
-                        if variant_ == variant:
-                            second_opinions.append(evidence_id)
-                            break
+                    if variant in evidence_variants:
+                        second_opinions.append(evidence_id)
 
                 if second_opinions:
                     variant.set_info('VTSO', ','.join(second_opinions))
