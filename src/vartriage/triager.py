@@ -9,7 +9,6 @@ class Triager:
 
         self._evidence: Dict[str, Set[Variant]] = {}
         for evidence_id, evidence_variants in evidence.items():
-            print(evidence_id)
             self._evidence[evidence_id] = set(variant for variant in evidence_variants if not variant.is_filtered())
 
     def triage(self, vcf: VCF) -> None:
