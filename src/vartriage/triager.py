@@ -6,7 +6,10 @@ from vartriage.core import Variant, VCF
 class Triager:
 
     def __init__(self, evidence: Dict[str, List[Variant]]) -> None:
-        self._evidence = evidence
+
+        self._evidence: Dict[str, List[Variant]] = {}
+        for evidence_id, evidence_variants in evidence.items():
+            self._evidence[evidence_id] = [variant for variant in evidence_variants if not variant.is_filtered()]
 
     def triage(self, vcf: VCF) -> None:
 
@@ -21,7 +24,7 @@ class Triager:
 
                 for evidence_id, evidence_variants in self._evidence.items():
                     for variant_ in evidence_variants:
-                        if not variant_.is_filtered() and variant_ == variant:
+                        if variant_ == variant:
                             second_opinions.append(evidence_id)
                             break
 
