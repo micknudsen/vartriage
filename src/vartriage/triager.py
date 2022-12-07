@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Set
 
 from vartriage.core import Variant, VCF
 
@@ -7,9 +7,10 @@ class Triager:
 
     def __init__(self, evidence: Dict[str, List[Variant]]) -> None:
 
-        self._evidence: Dict[str, List[Variant]] = {}
+        self._evidence: Dict[str, Set[Variant]] = {}
         for evidence_id, evidence_variants in evidence.items():
-            self._evidence[evidence_id] = [variant for variant in evidence_variants if not variant.is_filtered()]
+            print(evidence_id)
+            self._evidence[evidence_id] = set(variant for variant in evidence_variants if not variant.is_filtered())
 
     def triage(self, vcf: VCF) -> None:
 

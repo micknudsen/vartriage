@@ -23,6 +23,9 @@ class Variant():
             raise VariantException('Multiallelic variants are not supported. '
                                    'Please normalize input VCF files (e.g. using bcftools norm).')
 
+    def __hash__(self) -> int:
+        return hash((self.chrom, self.pos))
+
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Variant):
             return NotImplemented
